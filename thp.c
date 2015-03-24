@@ -103,11 +103,11 @@ lambda(O *o, O *env)
 	args = evalargs(cdr(o), env);
 
 	if(strcmp(atomstr(car(f)), "LAMBDA") == 0){
-		print("lambda\n");
-		print("args: "); prin1(args); print("\n");
+		//print("lambda\n");
+		//print("args: "); prin1(args); print("\n");
 		env = args2env(car(cdr(f)), args, env);
-		print("env: "); prin1(env); print("\n");
-		print("body: "); prin1(cdr(cdr(f))); print("\n");
+		//print("env: "); prin1(env); print("\n");
+		//print("body: "); prin1(cdr(cdr(f))); print("\n");
 		//print("evaling body: "); prin1(eval(cdr(cdr(f)), env)); print("\n");
 		return eval(car(cdr(cdr(f))), env);
 	}
@@ -155,6 +155,13 @@ eval(O *o, O *env)
 		return car(eval(car(o), env));
 	if(strcmp(a, "CDR") == 0)
 		return cdr(eval(car(o), env));
+	if(strcmp(a, "IF") == 0){
+		/* (IF (cond expr) expr) */
+		if(eval(car(car(o)), env) != nil)
+			return eval(car(cdr(car(o))), env);
+		else
+			return eval(car(cdr(o)), env);
+	}
 	if(strcmp(a, "LET") == 0){
 		/* (let ((x 6) (n 3)) (cond etc...)) */
 		for(vars = car(o); vars != nil; vars = cdr(vars))
