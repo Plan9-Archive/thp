@@ -4,6 +4,8 @@
 
 Perhaps I should have named it *awl* -- A Weekend Lisp, or *yawl* -- You Figure It Out.
 
+For that matter, it could also be said to be a “weakened” Lisp!
+
 It requires *libsexp*:
 https://bitbucket.org/dhoskin/libsexp
 
@@ -58,6 +60,7 @@ or natively with a bit of `s/print/printf/g`.
 
 * Built-in functions and special forms:
 `CONS`, `CAR`, `CDR`, `IF`, `LAMBDA`, `LET`, `QUOTE`.
+* *thp* is a Lisp-1.
 * There is no partial application.
 * Builtins are baked into `eval`, which behaves magically on special atom names.
 It would perhaps be saner to break them out into something like `(BUILTIN "CDR")`,
@@ -81,3 +84,13 @@ along with an explicit `(EVAL ...)`.
 		439 total
 
 * Goats!
+
+### Acknowledgements
+
+I would like to thank the first couple of chapters of SICP
+for the discussion on special forms;
+and the Lisp 1.5 book for the outline of how eval evals,
+and for reminding me that if they could do it in assembly language
+on a 4 kiloword machine I should darn well be able
+to do it in C with a gigabyte of RAM;
+and lastly Wikipedia.
