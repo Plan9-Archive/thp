@@ -89,7 +89,7 @@ along with an explicit `(EVAL ...)`.
 
 I would like to thank the first couple of chapters of SICP
 for the discussion on special forms;
-and the Lisp 1.5 book for the outline of how eval evals,
+the Lisp 1.5 book for the outline of how eval evals,
 and for reminding me that if they could do it in assembly language
 on a 4 kiloword machine I should darn well be able
 to do it in C with a gigabyte of RAM;
