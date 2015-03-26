@@ -48,7 +48,7 @@ or natively with a bit of `s/print/printf/g`.
 
 * There is no garbage collection.
 * There is no tail-call optimization.
-* It is dynamically scoped. (Lexical scope coming soon!)  There are no closures, yet.
+* It is dynamically scoped. (Lexical scope coming soon!)
 
 		(LET ((f (LAMBDA (x) (CONS x y))))
 			(LET ((y world))
@@ -58,8 +58,16 @@ or natively with a bit of `s/print/printf/g`.
 		→ args: (hello)
 		→ (hello . world)
 
+	* Closures are implemented, but full lexical scope is still not here.
+
+			(LET ((f (LAMBDA (x) (LAMBDA (y) (CONS x y))))
+				(helloer (f hello)))
+				(helloer world))
+			
+			→ (hello . world)
+
 * Built-in functions and special forms:
-`CONS`, `CAR`, `CDR`, `IF`, `LAMBDA`, `LET`, `QUOTE`.
+`CONS`, `CAR`, `CDR`, `IF`, `LAMBDA`, `CLOSURE`, `LET`, `QUOTE`.
 * *thp* is a Lisp-1.
 * There is no partial application.
 * Builtins are baked into `eval`, which behaves magically on special atom names.

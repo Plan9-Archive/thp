@@ -86,6 +86,15 @@ args2env(O *proto, O *args, O *env)
 	return cons(cons(car(proto), cons(car(args), nil)), args2env(cdr(proto), cdr(args), env));
 }
 
+/* XXX expensive */
+O *
+splice(O *head, O *tail)
+{
+	if(head == nil)
+		return tail;
+	return cons(car(head), splice(cdr(head), tail));
+}
+
 O *
 lambda(O *o, O *env)
 {
@@ -100,9 +109,15 @@ lambda(O *o, O *env)
 	if(f->type != List)
 		return nil;
 
-	args = evalargs(cdr(o), env);
+	if(strcmp(atomstr(car(f)), "CLOSURE") == 0){
+		env =  splice(car(cdr(f)), env); /* XXX expensive! especially on every function call! */
+		args = evalargs(cdr(o), env);
+		env = args2env(car(cdr(cdr(f))), args, env);
+		return eval(car(cdr(cdr(cdr(f)))), env);
+	}
 
 	if(strcmp(atomstr(car(f)), "LAMBDA") == 0){
+		args = evalargs(cdr(o), env);
 		//print("lambda\n");
 		//print("args: "); prin1(args); print("\n");
 		env = args2env(car(cdr(f)), args, env);
@@ -111,7 +126,6 @@ lambda(O *o, O *env)
 		//print("evaling body: "); prin1(eval(cdr(cdr(f)), env)); print("\n");
 		return eval(car(cdr(cdr(f))), env);
 	}
-	/* Should we have "CLOSURE"? */
 
 	print("reached bottom of lambda\n");
 	return nil;
@@ -141,10 +155,12 @@ eval(O *o, O *env)
 
 	a = atomstr(car(o));
 
-	if(strcmp(a, "LAMBDA") == 0){
+	if(strcmp(a, "CLOSURE") == 0){
 		return o;
 	}
-
+	if(strcmp(a, "LAMBDA") == 0){
+		return cons(mka("CLOSURE"), cons(env, cdr(o)));
+	}
 	o = cdr(o);
 
 	if(strcmp(a, "CONS") == 0){
