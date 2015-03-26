@@ -72,7 +72,7 @@ or natively with a bit of `s/print/printf/g`.
 * There is no partial application.
 * Builtins are baked into `eval`, which behaves magically on special atom names.
 It would perhaps be saner to break them out into something like `(BUILTIN "CDR")`,
-and then prepopulate the environment: `(LET (car (LAMBDA (l) (BUILTIN (CAR l)))))`.
+and then prepopulate the environment: `(LET ((car (LAMBDA (l) (BUILTIN (CAR l))))))`.
 Nonetheless, it is already possible to override builtins,
 because they have a lower "precedence" than variables:
 
@@ -82,14 +82,15 @@ because they have a lower "precedence" than variables:
 * I think it might actually be pretty easy to allow user-defined special forms
 by providing a `(SPECIAL-FORM ...)` wrapper that disables automatic evaluation of arguments,
 along with an explicit `(EVAL ...)`.
+	* http://en.wikipedia.org/wiki/fexpr
 * I sort of want to add Church numerals.
 
 * 
 	% wc -l thp.c ../libsexp/sexp.[ch]
-		193 thp.c
+		182 thp.c
 		216 ../libsexp/sexp.c
-		 30 ../libsexp/sexp.h
-		439 total
+		 31 ../libsexp/sexp.h
+		429 total
 
 * Goats!
 
@@ -102,3 +103,6 @@ and for reminding me that if they could do it in assembly language
 on a 4 kiloword machine I should darn well be able
 to do it in C with a gigabyte of RAM;
 and lastly Wikipedia.
+
+AWK-LISP was also inspirational:
+http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/impl/awk/

@@ -5,33 +5,6 @@
 
 O *eval(O *o, O *env);
 
-typedef struct Builtin Builtin;
-
-struct Builtin
-{
-	char *k;
-	O *(*f)(O *o);
-};
-
-/* Hmm, they take different arg lists. */
-/* This is probably counterproductive. */
-//Builtin bb[] = {
-//	{"cons", cons},
-//};
-
-enum
-{
-	Cons = 0,
-	Car = 1,
-	Cdr = 2,
-};
-
-//char bi[][] = {
-//	[Cons] "cons",
-//	[Car] "car",
-//	[Cdr] "cdr",
-//};
-
 /* XXX need to distinguish numbers. */
 O *
 evala(O *o, O *env)
