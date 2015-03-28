@@ -5,7 +5,6 @@
 
 O *eval(O *o, O *env);
 
-/* XXX need to distinguish numbers. */
 O *
 evala(O *o, O *env)
 {
@@ -36,18 +35,6 @@ evalargs(O *o, O *env)
 
 	return cons(eval(car(o), env), evalargs(cdr(o), env));
 }
-
-//O *
-//args2env(O *proto, O *args, O *env)
-//{
-//	while(proto != nil){
-//		env = cons(cons(car(proto), cons(car(args), nil)), env);
-//		proto = cdr(proto);
-//		args = cdr(args);
-//	}
-//
-//	return env;
-//}
 
 /* XXX how to do partial application? */
 O *
@@ -104,12 +91,6 @@ lambda(O *o, O *env)
 	return nil;
 }
 
-/* (NAME (alist)) */
-/* Need to pass a list of local variables. */
-/* Need to handle all special forms here.  def/defun cond lambda let */
-/* Default case: lookup a in local variable list. */
-/* XXX closures! */
-/* XXX need to eval args! eg (let ((a (+ 1 2))) ...) */
 O *
 eval(O *o, O *env)
 {

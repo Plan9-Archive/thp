@@ -87,10 +87,10 @@ along with an explicit `(EVAL ...)`.
 
 * 
 	% wc -l thp.c ../libsexp/sexp.[ch]
-		182 thp.c
+		163 thp.c
 		216 ../libsexp/sexp.c
 		 31 ../libsexp/sexp.h
-		429 total
+		410 total
 
 * Goats!
 
